@@ -1,9 +1,9 @@
 function App() {
 
   return (
-    <>
-    Smart Cart
-    </>
+    <div className="text-4xl">
+      Smart Cart
+    </div>
   )
 }
 
