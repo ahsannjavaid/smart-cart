@@ -1,0 +1,8 @@
+/* Customizing Swiper button colors */
+.swiper-color .swiper-button-next::after,
+.swiper-color .swiper-button-prev::after {
+    color: #1B1B3C !important;
+    /* Change to any color */
+    font-size: 24px;
+    /* Optional: Change button size */
+}

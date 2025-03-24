@@ -1,0 +1,82 @@
+/* General Styling */
+.team-section {
+    background-color: #f5f5f5;
+    /* Same as About Us section */
+    padding: 4rem 2rem;
+    text-align: center;
+    overflow: hidden;
+    /* Prevent slider overflow */
+    max-width: 1200px;
+    margin: auto;
+    /* Center align */
+}
+
+.team-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #004080;
+    /* Blue from About Us */
+    margin-bottom: 2rem;
+}
+
+/* Slider Container */
+.team-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Sliding Track */
+.team-track {
+    display: flex;
+    gap: 1.5rem;
+    animation: slide 15s linear infinite;
+    /* Continuous sliding */
+}
+
+/* Team Card */
+.team-card {
+    flex: 0 0 calc(25% - 1.5rem);
+    /* Show 4 images at a time */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-card:hover {
+    transform: scale(1.05);
+}
+
+/* Team Image */
+.team-image {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+/* Team Name and Role */
+.team-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #004080;
+    /* Blue from About Us */
+}
+
+.team-role {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Keyframes for Sliding Effect */
+@keyframes slide {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
