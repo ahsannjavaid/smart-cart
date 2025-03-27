@@ -11,7 +11,7 @@ function Footer() {
               <img src="/written.png" alt="smartcart logo" />
             </Link>
             <p className="mt-2 text-sm text-gray-500 px-4">
-              Wear Smart
+              Wear Smart - Smart Cart
             </p>
             <p className="text-sm text-gray-500 px-4">
               Premium TShirts, Hoodies and Mugs
