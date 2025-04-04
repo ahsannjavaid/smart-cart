@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import Hoodies from "./pages/Hoodies";
 import Login from "./pages/Login";
+import Forgot from "./pages/Forgot";
 const router = createHashRouter([
   {
     path: "/",
@@ -25,6 +26,10 @@ const router = createHashRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/forgot",
+        element: <Forgot />,
       }
     ],
   },
