@@ -12,6 +12,7 @@ import MyOrder from "./pages/MyOrder";
 import Orders from "./pages/Orders";
 import Signup from "./pages/Signup";
 import Stickers from "./pages/Stickers";
+import TShirts from "./pages/TShirts.";
 const router = createHashRouter([
   {
     path: "/",
@@ -60,6 +61,10 @@ const router = createHashRouter([
       {
         path: "/stickers",
         element: <Stickers />,
+      },
+      {
+        path: "/tshirts",
+        element: <TShirts />,
       }
     ],
   },
