@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import Hoodies from "./pages/Hoodies";
+import Login from "./pages/Login";
 const router = createHashRouter([
   {
     path: "/",
@@ -20,6 +21,10 @@ const router = createHashRouter([
       {
         path: "/hoodies",
         element: <Hoodies />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       }
     ],
   },
