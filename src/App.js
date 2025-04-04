@@ -10,6 +10,7 @@ import Mugs from "./pages/Mugs";
 import MyAccount from "./pages/MyAccount";
 import MyOrder from "./pages/MyOrder";
 import Orders from "./pages/Orders";
+import Signup from "./pages/Signup";
 const router = createHashRouter([
   {
     path: "/",
@@ -50,6 +51,10 @@ const router = createHashRouter([
       {
         path: "/orders",
         element: <Orders />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       }
     ],
   },
