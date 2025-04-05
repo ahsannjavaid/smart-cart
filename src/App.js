@@ -16,6 +16,7 @@ import TShirts from "./pages/TShirts.";
 import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/admin/AddProduct";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminLogin from "./pages/admin/Login";
 const router = createHashRouter([
   {
     path: "/",
@@ -80,6 +81,10 @@ const router = createHashRouter([
       {
         path: "/admin/admindashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "/admin",
+        element: <AdminLogin />,
       }
     ],
   },
