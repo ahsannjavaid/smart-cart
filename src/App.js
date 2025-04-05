@@ -18,6 +18,7 @@ import AddProduct from "./pages/admin/AddProduct";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminLogin from "./pages/admin/Login";
 import ShowAllOrders from "./pages/admin/ShowAllOrders";
+import ShowAllProducts from "./pages/admin/ShowAllProducts";
 const router = createHashRouter([
   {
     path: "/",
@@ -91,6 +92,10 @@ const router = createHashRouter([
         path: "/admin/showallorders",
         element: <ShowAllOrders />,
       },
+      {
+        path: "/admin/showallproducts",
+        element: <ShowAllProducts />,
+      }
     ],
   },
 ]);
