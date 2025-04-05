@@ -59,32 +59,4 @@ const Hoodies = ({products}) => {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   if(!mongoose.connections.readyState>=1){
-//     await mongoose.connect(process.env.MONGO_URI)
-// }
-//   let products=await Product.find({category: 'hoodies'})
-//   let hoods={}
-//     for (let item of products){
-//         if(item.title in hoods){
-//             if(!hoods[item.title].color.includes(item.color)&&item.availableQty>0){
-//                 hoods[item.title].color.push(item.color)
-//             }
-//             if(!hoods[item.title].size.includes(item.size)&&item.availableQty>0){
-//                 hoods[item.title].size.push(item.size)
-//             }
-//         }
-//         else{
-//             hoods[item.title]=JSON.parse(JSON.stringify(item))
-//             if(item.availableQty>0){
-//                 hoods[item.title].color=[item.color]
-//                 hoods[item.title].size=[item.size]
-//             }
-//         }
-//     }
-//   return {
-//     props: {products: JSON.parse(JSON.stringify(hoods))},
-//   }
-// }
-
 export default Hoodies;
