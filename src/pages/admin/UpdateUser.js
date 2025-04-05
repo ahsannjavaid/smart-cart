@@ -19,7 +19,7 @@ const UpdateUser = () => {
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("adminuser"));
     if (!myuser) {
-      navigate("/admin");
+      // navigate('/admin');
     }
 
     if (myuser && myuser.token) {
