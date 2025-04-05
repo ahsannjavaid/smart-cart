@@ -11,7 +11,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem('myuser')) {
-            navigate('/')
+            // navigate('/')
         }
         // eslint-disable-next-line
     }, [])

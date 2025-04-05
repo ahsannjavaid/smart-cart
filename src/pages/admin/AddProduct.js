@@ -113,7 +113,7 @@ const AddProduct = () => {
     };
     // const handleLogout = () => {
     //   localStorage.removeItem('adminuser');
-    //   navigate('/');
+    //   // navigate('/');
     // };
 
     return (

@@ -22,7 +22,7 @@ const Orders = () => {
         }
 
         if (!localStorage.getItem('myuser')) {
-            navigate('/')
+            // navigate('/')
         }
 
         else {

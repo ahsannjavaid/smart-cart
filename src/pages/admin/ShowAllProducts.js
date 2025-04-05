@@ -25,7 +25,7 @@ const ShowAllProducts = () => {
 
 
         if (!localStorage.getItem('adminuser')) {
-            navigate('/admin')
+            // navigate('/admin')
         }
         else {
             fetchProducts()

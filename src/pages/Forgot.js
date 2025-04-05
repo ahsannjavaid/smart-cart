@@ -11,7 +11,7 @@ const Forgot = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            navigate('/')
+            // navigate('/')
         }
 
         // eslint-disable-next-line

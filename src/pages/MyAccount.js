@@ -18,7 +18,7 @@ const MyAccount = () => {
     useEffect(() => {
         const myuser = JSON.parse(localStorage.getItem('myuser'))
         if (!myuser) {
-            navigate('/')
+            // navigate('/')
         }
 
         if (myuser && myuser.token) {
