@@ -95,7 +95,7 @@ function Navbar({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         </div>
       </div>
 
-      <div
+      {sidebar && <div
         ref={ref}
         className={`w-72 h-[100vh] sideCart overflow-y-scroll absolute top-0 px-8 py-10 bg-orange-100 transition-all ${sidebar ? 'right-0' : '-right-96'} z-40`}
       >
@@ -151,7 +151,7 @@ function Navbar({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
             Clear Cart
           </button>
         </div>
-      </div>
+      </div>}
     </>
   );
 }
