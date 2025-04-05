@@ -19,7 +19,7 @@ const AdminDashboard = () => {
         <div className="flex flex-col min-h-screen">
 
             <div className="logo mt-5 mb-20 flex justify-center ">
-                <Link to={'/admin/admindashboard'}>
+                <Link to={'/admin'}>
                     <img src="/written.png" width={200} height={40} alt="Logo" />
                 </Link>
             </div>
