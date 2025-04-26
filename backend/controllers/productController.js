@@ -6,26 +6,27 @@ exports.myProducts = async (req, res) => {
 }
 
 exports.getProducts = async (req, res) => {
-  let products = await Product.find()
-  let tshirts = {}
+  const { category } = req.query;
+  let products = await Product.find({ category })
+  let data = {}
   for (let item of products) {
-    if (item.title in tshirts) {
-      if (!tshirts[item.title].color.includes(item.color) && item.availableQty > 0) {
-        tshirts[item.title].color.push(item.color)
+    if (item.title in data) {
+      if (!data[item.title].color.includes(item.color) && item.availableQty > 0) {
+        data[item.title].color.push(item.color)
       }
-      if (!tshirts[item.title].size.includes(item.size) && item.availableQty > 0) {
-        tshirts[item.title].size.push(item.size)
+      if (!data[item.title].size.includes(item.size) && item.availableQty > 0) {
+        data[item.title].size.push(item.size)
       }
     }
     else {
-      tshirts[item.title] = JSON.parse(JSON.stringify(item))
+      data[item.title] = JSON.parse(JSON.stringify(item))
       if (item.availableQty > 0) {
-        tshirts[item.title].color = [item.color]
-        tshirts[item.title].size = [item.size]
+        data[item.title].color = [item.color]
+        data[item.title].size = [item.size]
       }
     }
   }
-  res.status(200).json({ tshirts });
+  res.status(200).json({ data });
 }
 
 exports.addProduct = async (req, res) => {
