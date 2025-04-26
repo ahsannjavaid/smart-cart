@@ -1,7 +1,5 @@
-const Order = require("../models/Order");
 const pincodes = require('../../pincodes.json');
 const Product = require("../models/Product");
-const jsonwebtoken = require("jsonwebtoken");
 
 exports.colors = async (req, res) => {
   const { size } = req.query;
