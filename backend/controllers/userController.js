@@ -30,3 +30,14 @@ exports.login = async (req, res) => {
     res.status(200).json({ success: false, error: "User Not Found" });
   }
 };
+
+exports.signup = async (req, res) => {
+  const { name, email } = req.body
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return res.status(400).json({ error: "This user already exists!" });
+  }
+  let u = new User({ name, email, password: CryptoJS.AES.encrypt(req.body.password, process.env.AES_SECRET).toString() })
+  u.save()
+  res.status(200).json({ success: "Success" })
+}
