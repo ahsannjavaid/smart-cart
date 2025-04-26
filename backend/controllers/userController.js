@@ -2,6 +2,15 @@ const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
 
+exports.getUser = async (req, res) => {
+  let token = req.body.token
+  let user = jwt.verify(token, process.env.JWT_SECRET)
+  let dbuser = await User.findOne({ email: user.email })
+
+  const { name, email, address, pincode, phone } = dbuser
+  res.status(200).json({ name, email, address, pincode, phone });
+}
+
 exports.login = async (req, res) => {
   let u = await User.findOne({ "email": req.body.email });
   if (u) {
