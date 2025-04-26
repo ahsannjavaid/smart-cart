@@ -55,3 +55,11 @@ exports.updatePassword = async (req, res) => {
   }
   res.status(200).json({ success: false });
 }
+
+exports.updateUser = async (req, res) => {
+  let token = req.body.token
+  let user = jwt.verify(token, process.env.JWT_SECRET)
+  let dbuser = await User.findOneAndUpdate({ email: user.email }, { address: req.body.address, pincode: req.body.pincode, phone: req.body.phone, name: req.body.name })
+
+  res.status(200).json({ success: true });
+}
