@@ -17,3 +17,7 @@ exports.colors = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 }
+
+exports.pincodes = async (req, res) => {
+  res.status(200).json(pincodes);
+}
