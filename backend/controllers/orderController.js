@@ -1,6 +1,7 @@
 const Order = require("../models/Order");
 const pincodes = require('../../pincodes.json');
 const Product = require("../models/Product");
+const jsonwebtoken = require("jsonwebtoken");
 
 exports.getAllOrders = async (req, res) => {
   let orders = await Order.find()
@@ -70,3 +71,45 @@ exports.initiateOrder = async (req, res) => {
   }
   res.status(200).json({ success: true, orderId: order._id })
 }
+
+exports.getMyOrders = async (req, res) => {
+  const token = req.body?.token
+  if (!token) {
+    res.status(403).json({ success: false, "error": "Unauthorized user!" })
+    return
+  }
+  const data = jsonwebtoken.verify(token, process.env.JWT_SECRET)
+  let orders = await Order.find({ email: data.email })
+  res.status(200).json({ orders });
+}
+
+exports.updateOrder = async (req, res) => {
+  try {
+    const { orderId, field, newStatus } = req.body;
+
+    let updateData = {};
+    if (field === "status") {
+      updateData = { status: newStatus };
+    } else if (field === "deliveryStatus") {
+      updateData = { deliveryStatus: newStatus };
+    } else {
+      console.log("Invalid field specified:", field);
+      return res.status(400).json({ success: false, message: "Invalid field specified" });
+    }
+
+    const updatedOrder = await Order.findOneAndUpdate(
+      { orderId: orderId },
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+
+    res.status(200).json({ success: true, updatedOrder });
+  } catch (error) {
+    console.error("Error updating order:", error); // Log the error for debugging
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
