@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from "../../config";
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -21,7 +22,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = { email, password }
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/adminlogin`, {
+        let res = await fetch(`${API_BASE_URL}/adminlogin`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -46,7 +47,7 @@ const Login = () => {
                 transition: Bounce,
             });
             setTimeout(() => {
-                navigate(`${process.env.NEXT_PUBLIC_HOST}/admin/admindashboard`)
+                navigate("/admin/admindashboard")
             }, 1000)
 
         }
