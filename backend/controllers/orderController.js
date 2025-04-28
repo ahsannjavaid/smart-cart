@@ -73,15 +73,19 @@ exports.initiateOrder = async (req, res) => {
 }
 
 exports.getMyOrders = async (req, res) => {
-  const token = req.body?.token
+  const token = req.headers?.authorization?.split(' ')[1];
   if (!token) {
-    res.status(403).json({ success: false, "error": "Unauthorized user!" })
-    return
+    return res.status(403).json({ success: false, error: "Unauthorized user!" });
   }
-  const data = jsonwebtoken.verify(token, process.env.JWT_SECRET)
-  let orders = await Order.find({ email: data.email })
-  res.status(200).json({ orders });
-}
+  
+  try {
+    const data = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    const orders = await Order.find({ email: data.email });
+    res.status(200).json({ orders });
+  } catch (error) {
+    res.status(403).json({ success: false, error: "Invalid or expired token" });
+  }
+};
 
 exports.updateOrder = async (req, res) => {
   try {

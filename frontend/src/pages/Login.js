@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem('myuser')) {
-            // navigate('/')
+            navigate('/')
         }
         // eslint-disable-next-line
     }, [])
@@ -29,7 +30,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = { email, password }
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
+        let res = await fetch(`${API_BASE_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -54,7 +55,7 @@ const Login = () => {
                 transition: Bounce,
             });
             setTimeout(() => {
-                navigate(process.env.NEXT_PUBLIC_HOST)
+                navigate('/')
             }, 1000)
 
         }

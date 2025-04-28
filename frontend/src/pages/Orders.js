@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 const Orders = () => {
     const navigate = useNavigate();
@@ -8,27 +9,26 @@ const Orders = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/myorders`, {
-                method: 'POST',
+            const token = JSON.parse(localStorage.getItem('myuser'))?.token;
+
+            if (!token) {
+                navigate('/');
+                return;
+            }
+
+            let a = await fetch(`${API_BASE_URL}/myorders`, {
+                method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ token: JSON.parse(localStorage.getItem('myuser')).token }),
-            })
+            });
 
-            let res = await a.json()
-            setOrders(res.orders)
+            let res = await a.json();
+            setOrders(res.orders);
+        };
 
-        }
-
-        if (!localStorage.getItem('myuser')) {
-            // navigate('/')
-        }
-
-        else {
-            fetchOrders()
-        }
-
+        fetchOrders();
         // eslint-disable-next-line
     }, [])
     return (
