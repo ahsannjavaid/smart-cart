@@ -6,14 +6,14 @@ const AdminDashboard = () => {
     const navigate = useNavigate()
     useEffect(() => {
         if (!localStorage.getItem('adminuser')) {
-            // navigate('/admin')
+            navigate('/admin')
         }
 
         // eslint-disable-next-line
     }, [])
     const handleLogout = () => {
         localStorage.removeItem('adminuser');
-        // navigate('/');
+        navigate('/');
     };
     return (
         <div className="flex flex-col min-h-screen">
