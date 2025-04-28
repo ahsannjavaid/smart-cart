@@ -86,7 +86,7 @@ const Layout = () => {
     localStorage.removeItem('myuser')
     setKey(Math.random())
     setUser({ value: null })
-    // navigate('/')
+    navigate('/')
   }
 
   return (
