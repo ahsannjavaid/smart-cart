@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config";
+import { useParams } from "react-router-dom";
 
-const MyOrder = ({ order }) => {
-  const products = order?.products ?? []
+const MyOrder = () => {
+  const { id } = useParams();
+
+  const [order, setOrder] = useState();
+  const [products, setProducts] = useState();
   const [date, setDate] = useState()
   const [tracking, setTracking] = useState(false)
+
   useEffect(() => {
-    const d = new Date(order?.createdAt)
-    setDate(d)
-    setTracking(false)
+    const fetchOrder = async () => {
+      const token = JSON.parse(localStorage.getItem('myuser'))?.token;
+
+      let resolve = await fetch(`${API_BASE_URL}/myorder/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      })
+      let res = await resolve.json();
+      setOrder(res.order)
+      
+      setProducts(res?.order.products)
+      const d = new Date(res.order?.createdAt)
+      setDate(d)
+    }
+    fetchOrder()
 
     // eslint-disable-next-line
   }, [])
@@ -36,17 +57,17 @@ const MyOrder = ({ order }) => {
             </p>
             <br />
             <br />
-            <div class="flex mb-4">
-              <span class="flex-grow py-2 text-lg w-1/3">Item Description</span>
-              <span class="flex-grow py-2 text-lg w-1/3">Quantity</span>
-              <span class="flex-grow py-2 text-lg w-1/3">Item Total</span>
+            <div className="flex mb-4">
+              <span className="flex-grow py-2 text-lg w-1/3">Item Description</span>
+              <span className="flex-grow py-2 text-lg w-1/3">Quantity</span>
+              <span className="flex-grow py-2 text-lg w-1/3">Item Total</span>
             </div>
 
-            {Object.keys(products).map((key) => {
+            {Object.keys(products ?? []).map((key) => {
               return <div key={key} className="flex border-t border-gray-200 py-2">
-                <span className="text-gray-500 w-1/3">{products[key]?.name} ({products[key]?.size}/{products[key]?.variant})</span>
-                <span className="m-auto text-gray-900 md:w-1/3">{products[key]?.qty}</span>
-                <span className="m-auto text-gray-900 md:w-1/3">{products[key]?.price} X {products[key]?.qty} = {products[key]?.price * products[key]?.qty}</span>
+                <span className="text-gray-500 w-1/3">{products[key]?.name || products[key]?.title} ({products[key]?.size}/{products[key]?.variant || products[key]?.color})</span>
+                <span className="m-auto text-gray-900 md:w-1/3">{(products[key]?.qty || products[key]?.availableQty)}</span>
+                <span className="m-auto text-gray-900 md:w-1/3">{Number(products[key]?.price)} X {(products[key]?.qty || products[key]?.availableQty)} = {Number(products[key]?.price) * (products[key]?.qty || products[key]?.availableQty)}</span>
               </div>
             })}
 

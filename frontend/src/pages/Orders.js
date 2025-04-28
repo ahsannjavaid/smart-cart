@@ -57,7 +57,7 @@ const Orders = () => {
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{item.orderId}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{item.email}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{item.amount}</td>
-                                            <td className="whitespace-nowrap px-6 py-4"><Link to={'/order/?id=' + item._id}> Details </Link></td>
+                                            <td className="whitespace-nowrap px-6 py-4"><Link to={'/order/' + item._id}> Details </Link></td>
                                         </tr>
                                     })}
                                 </tbody>

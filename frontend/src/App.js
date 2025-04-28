@@ -54,7 +54,7 @@ const router = createHashRouter([
         element: <MyAccount />,
       },
       {
-        path: "/order",
+        path: "/order/:id",
         element: <MyOrder />,
       },
       {

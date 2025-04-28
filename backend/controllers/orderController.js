@@ -72,6 +72,23 @@ exports.initiateOrder = async (req, res) => {
   res.status(200).json({ success: true, orderId: order._id })
 }
 
+exports.getMyOrder = async (req, res) => {
+  const token = req.headers?.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(403).json({ success: false, error: "Unauthorized user!" });
+  }
+  
+  try {
+    const { id } = req.params;
+    const data = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    const order = await Order.findById(id);
+    if (order) res.status(200).json({ order });
+    else res.status(404).json({ success: false, error: "Order not found!" });
+  } catch (error) {
+    res.status(403).json({ success: false, error: "Invalid or expired token" });
+  }
+};
+
 exports.getMyOrders = async (req, res) => {
   const token = req.headers?.authorization?.split(' ')[1];
   if (!token) {
