@@ -98,7 +98,7 @@ const Layout = () => {
         onLoaderFinished={() => setProgress(0)}
       />
       {key && !pathname.startsWith('/admin') && (<Navbar logout={logout} user={user} key={key} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />)}
-      <Outlet buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+      <Outlet context={{ buyNow, cart, addToCart, removeFromCart, clearCart, subTotal }} />
       <Footer />
     </>
   );

@@ -74,7 +74,7 @@ const router = createHashRouter([
         element: <TShirts />,
       },
       {
-        path: "/product-details",
+        path: "/product/:slug",
         element: <ProductDetails />,
       },
       {

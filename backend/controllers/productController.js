@@ -29,6 +29,25 @@ exports.getProducts = async (req, res) => {
   res.status(200).json({ data });
 }
 
+exports.getProduct = async (req, res) => {
+  const { slug } = req.params;
+  let product = await Product.findOne({ slug })
+  if (product) {
+    let variants = await Product.find({ title: product?.title });
+    let colorSizeSlug = {};
+
+    for (let item of variants) {
+      if (!colorSizeSlug[item.color]) {
+        colorSizeSlug[item.color] = {};
+      }
+      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+    }
+    res.status(200).json({ product, variants: colorSizeSlug });
+  } else {
+    res.status(200).json({ success: false, message: "Product not found!" });
+  }
+}
+
 exports.addProduct = async (req, res) => {
   let p = new Product({
     title: req.body.title,

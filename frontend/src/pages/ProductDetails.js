@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { API_BASE_URL } from "../config";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ProductDetails({ buyNow, addToCart, product, variants, error }) {
-    const slug = "";
+export default function ProductDetails() {
     const navigate = useNavigate();
+
+    const { slug } = useParams();
+    const { buyNow, addToCart } = useOutletContext();
+    
+    const [product, setProduct] = useState();
+    const [variants, setVariants] = useState();
     const [pin, setPin] = useState();
-    const [service, setService] = useState();
+    const [service, setService] = useState(null);
     const [color, setColor] = useState();
     const [size, setSize] = useState();
 
     useEffect(() => {
-        if (!error) {
-            setColor(product?.color);
-            setSize(product?.size);
+        async function fetchProduct() {
+            try {
+                const rawResponse = await fetch(`${API_BASE_URL}/getproduct/${slug}`);
+                const response = await rawResponse.json();
+                setProduct(response.product);
+                setVariants(response.variants);
+            } catch (error) {
+                console.error(error);
+            }
         }
-        // router.query
-    }, [product?.color, product?.size, error]);
+        fetchProduct();
+        setColor(product?.color);
+        setSize(product?.size);
+    }, [product?.color, product?.size, slug]);
 
     const checkServiceability = async () => {
-        let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+        let pins = await fetch(`${API_BASE_URL}/pincode`);
         let pinJson = await pins.json();
 
         if (Object.keys(pinJson).includes(pin)) {
@@ -58,7 +72,7 @@ export default function ProductDetails({ buyNow, addToCart, product, variants, e
 
     const refreshVariant = (newSize, newColor) => {
         if (variants[newColor] && variants[newColor][newSize]) {
-            let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newColor][newSize]['slug']}`;
+            let url = `/product/${variants[newColor][newSize]['slug']}`;
             navigate(url);
         } else {
             toast.error('This variant is not available', {
@@ -85,10 +99,6 @@ export default function ProductDetails({ buyNow, addToCart, product, variants, e
         setSize(newSize);
         refreshVariant(newSize, color);
     };
-
-    if (error === 404) {
-        return <div>Page not found</div>;
-    }
 
     return (
         <>
