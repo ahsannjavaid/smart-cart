@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
 
 const ShowAllOrders = () => {
 
@@ -9,12 +10,11 @@ const ShowAllOrders = () => {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([])
     const fetchOrders = async () => {
-        let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/allorders`, {
-            method: 'POST',
+        let a = await fetch(`${API_BASE_URL}/allorders`, {
+            method: 'GET',
             headers: {
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify({ token: JSON.parse(localStorage.getItem('adminuser')).token }),
         })
 
         let res = await a.json()
@@ -25,7 +25,7 @@ const ShowAllOrders = () => {
 
 
         if (!localStorage.getItem('adminuser')) {
-            // navigate('/admin')
+            navigate('/admin')
         }
         else {
             fetchOrders()
@@ -35,7 +35,7 @@ const ShowAllOrders = () => {
     }, [])
 
     const handleStatusChange = async (orderId, newStatus) => {
-        await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateorder`, {
+        await fetch(`${API_BASE_URL}/updateorder`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -48,7 +48,7 @@ const ShowAllOrders = () => {
 
     const handleDeliveryStatusChange = async (orderId, newStatus) => {
         console.log(newStatus)
-        await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateorder`, {
+        await fetch(`${API_BASE_URL}/updateorder`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
