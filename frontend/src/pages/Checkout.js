@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { FaPlusCircle } from "react-icons/fa";
 import { FaMinusCircle } from "react-icons/fa";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '../config';
 
-const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
+const Checkout = () => {
     const navigate = useNavigate();
+
+    const { cart,addToCart,removeFromCart,subTotal,clearCart } = useOutletContext();
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
@@ -40,7 +44,7 @@ const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
   const fetchData=async(token)=>{
     let data={token:token}
     console.log(data)
-    let resolve=await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+    let resolve=await fetch(`${API_BASE_URL}/getuser`, {
       method:'POST',
       headers:{
         'Content-type' : 'application/json',
@@ -60,7 +64,7 @@ const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
   const initiateOrder=async ()=>{
     let oid =Math.floor(Math.random()*Date.now());
     const data={cart,subTotal,oid,email,name,address,pincode,phone,city,state}
-    let resolve=await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/initiateorder`, {
+    let resolve=await fetch(`${API_BASE_URL}/initiateorder`, {
       method:'POST',
       headers:{
         'Content-type' : 'application/json',
@@ -71,6 +75,7 @@ const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
   
     const responseData = await resolve.json();
     if(responseData.success){
+      clearCart()
       toast.success('Order Has Been Placed!', {
         position: "top-left",
         autoClose: 2000,
@@ -83,12 +88,12 @@ const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
         transition: Bounce,
         });
         setTimeout(() => {
-          navigate(`/order?id=${responseData.orderId}`);
+          navigate(`/order/${responseData.orderId}`);
         }, 1000);
       }
       else{
         if(responseData.cartClear){
-        clearCart()
+          clearCart()
         }
         toast.error(responseData.error, {
           position: "top-left",
@@ -100,12 +105,12 @@ const Checkout = ({order,cart,addToCart,removeFromCart,subTotal,clearCart}) => {
           progress: undefined,
           theme: "light",
           transition: Bounce,
-          });
+        });
       }
   }
 
   const getPincode=async(pin)=>{
-    let pins=await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
+    let pins=await fetch(`${API_BASE_URL}/pincode`)
       let pinJson=await pins.json()
       if(Object.keys(pinJson).includes(pin)){
         setState(pinJson[pin][1])
