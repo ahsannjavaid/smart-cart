@@ -14,6 +14,16 @@ const Layout = () => {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
+    setProgress(40);
+  
+    const timer = setTimeout(() => {
+      setProgress(100);
+    }, 300);
+  
+    return () => clearTimeout(timer);
+  }, [pathname]);
+  
+  useEffect(() => {
     try {
       if (localStorage.getItem("cart")) {
         setCart(JSON.parse(localStorage.getItem("cart")))
