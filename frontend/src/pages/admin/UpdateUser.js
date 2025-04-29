@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import { API_BASE_URL } from "../../config";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateUser = () => {
@@ -19,7 +20,7 @@ const UpdateUser = () => {
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("adminuser"));
     if (!myuser) {
-      // navigate('/admin');
+      navigate('/admin');
     }
 
     if (myuser && myuser.token) {
@@ -33,7 +34,7 @@ const UpdateUser = () => {
 
   const fetchData = async (token) => {
     let data = { token: token };
-    let resolve = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+    let resolve = await fetch(`${API_BASE_URL}/getuser`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -52,7 +53,7 @@ const UpdateUser = () => {
   const handleUserSubmit = async () => {
     let data = { token: user.token, address, name, phone, pincode };
     let resolve = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/updateuser`,
+      `${API_BASE_URL}/updateuser`,
       {
         method: "POST",
         headers: {
@@ -114,7 +115,7 @@ const UpdateUser = () => {
     if (npassword === cpassword) {
       let data = { token: user.token, password, cpassword, npassword };
       let resolve = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`,
+        `${API_BASE_URL}/updatepassword`,
         {
           method: "POST",
           headers: {
