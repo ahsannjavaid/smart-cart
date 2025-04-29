@@ -20,10 +20,8 @@ exports.getProducts = async (req, res) => {
     }
     else {
       data[item.title] = JSON.parse(JSON.stringify(item))
-      if (item.availableQty > 0) {
-        data[item.title].color = [item.color]
-        data[item.title].size = [item.size]
-      }
+      data[item.title].color = item.availableQty > 0 ? [item.color] : [];
+      data[item.title].size = item.availableQty > 0 ? [item.size] : [];
     }
   }
   res.status(200).json({ data });
