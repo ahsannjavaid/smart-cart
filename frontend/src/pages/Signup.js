@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { API_BASE_URL } from "../config"
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -12,7 +13,7 @@ const Signup = () => {
     const navigate = useNavigate()
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            // navigate('/')
+            navigate('/')
         }
 
         // eslint-disable-next-line
@@ -34,7 +35,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = { name, email, password }
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
+        let res = await fetch(`${API_BASE_URL}/signup`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
