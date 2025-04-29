@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 function Footer() {
   return (
     <div>
+      <hr />
       <footer className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
@@ -17,80 +18,38 @@ function Footer() {
               Premium TShirts, Hoodies and Mugs
             </p>
           </div>
-          <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+          <div className="flex-grow flex flex-wrap -mb-10 md:mt-0 mt-10 md:text-right text-center">
+            <div className="md:w-1/2 w-full">
+              <h2 className="title-font font-bold text-orange-600 tracking-widest text-sm mb-3">
                 SHOP
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link href={'/tshirts'} className="text-gray-600 hover:text-gray-800 my-1">TShirts</Link>
+                  <Link to={'/tshirts'} className="text-gray-600 hover:text-gray-800 my-1 underline">TShirts</Link>
                 </li>
                 <li>
-                  <Link href={'/hoodies'} className="text-gray-600 hover:text-gray-800 my-1">Hoodies</Link>
+                  <Link to={'/hoodies'} className="text-gray-600 hover:text-gray-800 my-1 underline">Hoodies</Link>
                 </li>
                 <li>
-                  <Link href={'/stickers'} className="text-gray-600 hover:text-gray-800 my-1">Stickers</Link>
+                  <Link to={'/stickers'} className="text-gray-600 hover:text-gray-800 my-1 underline">Stickers</Link>
                 </li>
                 <li>
-                  <Link href={'/mugs'} className="text-gray-600 hover:text-gray-800 my-1">Mugs</Link>
+                  <Link to={'/mugs'} className="text-gray-600 hover:text-gray-800 my-1 underline">Mugs</Link>
                 </li>
               </nav>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">First Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Second Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Third Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
-                </li>
-              </nav>
-            </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                POLICY
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">First Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Second Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Third Link</Link>
-                </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
-                </li>
-              </nav>
-            </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+            <div className="md:w-1/2 w-full">
+              <h2 className="title-font font-bold text-orange-600 tracking-widest text-sm mb-3">
                 ABOUT
               </h2>
               <nav className="list-none mb-10">
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">First Link</Link>
+                <li className="text-gray-600">Web Programming (BCS-8B)
                 </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Second Link</Link>
+                <li className="text-gray-600">(Semester Project)
                 </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Third Link</Link>
+                <li className="font-bold">Muhammad Waleed Imran (21L-5195)
                 </li>
-                <li>
-                  <Link to={""} className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
+                <li className="font-bold">Ahsan Javed (21L-1815)
                 </li>
               </nav>
             </div>
@@ -99,7 +58,7 @@ function Footer() {
         <div className="bg-gray-100">
           <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
             <p className="text-gray-500 text-sm text-center sm:text-left">
-              © 2024 SmartCart.com — All Rights Reserved
+              © 2025 SmartCart.com — All Rights Reserved
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
               <Link to={""} className="text-gray-500">
@@ -126,7 +85,7 @@ function Footer() {
                   <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                 </svg>
               </Link>
-            
+
               <Link to={""} className="ml-3 text-gray-500">
                 <svg
                   fill="currentColor"
