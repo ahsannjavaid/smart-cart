@@ -2,6 +2,7 @@ const Order = require("../models/Order");
 const pincodes = require('../../pincodes.json');
 const Product = require("../models/Product");
 const jsonwebtoken = require("jsonwebtoken");
+const moment = require('moment');
 
 exports.getAllOrders = async (req, res) => {
   let orders = await Order.find()
@@ -77,7 +78,7 @@ exports.getMyOrder = async (req, res) => {
   if (!token) {
     return res.status(403).json({ success: false, error: "Unauthorized user!" });
   }
-  
+
   try {
     const { id } = req.params;
     const data = jsonwebtoken.verify(token, process.env.JWT_SECRET);
@@ -94,7 +95,7 @@ exports.getMyOrders = async (req, res) => {
   if (!token) {
     return res.status(403).json({ success: false, error: "Unauthorized user!" });
   }
-  
+
   try {
     const data = jsonwebtoken.verify(token, process.env.JWT_SECRET);
     const orders = await Order.find({ email: data.email });
@@ -132,5 +133,88 @@ exports.updateOrder = async (req, res) => {
   } catch (error) {
     console.error("Error updating order:", error); // Log the error for debugging
     res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.getMonthlySales = async (req, res) => {
+  try {
+    const monthlySalesRaw = await Order.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: '$createdAt' },
+            month: { $month: '$createdAt' }
+          },
+          totalSales: {
+            $sum: {
+              $toDouble: '$amount'
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          year: '$_id.year',
+          month: '$_id.month',
+          totalSales: 1
+        }
+      },
+      { $sort: { year: 1, month: 1 } }
+    ]);
+
+    if (monthlySalesRaw.length === 0) return res.status(200).json([]);
+
+    const start = moment(`${monthlySalesRaw[0].year}-${monthlySalesRaw[0].month}`, 'YYYY-M');
+    const end = moment(`${monthlySalesRaw[monthlySalesRaw.length - 1].year}-${monthlySalesRaw[monthlySalesRaw.length - 1].month}`, 'YYYY-M');
+
+    const monthMap = {};
+    monthlySalesRaw.forEach(entry => {
+      const key = `${entry.year}-${entry.month.toString().padStart(2, '0')}`;
+      monthMap[key] = entry.totalSales;
+    });
+
+    const result = [];
+    let current = start.clone();
+    while (current.isSameOrBefore(end)) {
+      const key = current.format('YYYY-MM');
+      result.push({
+        month: key,
+        monthName: `${current.format('MMMM')}, ${parseInt(current.format('YYYY'))}`,
+        "Total Sales (PKR)": monthMap[key] || 0
+      });
+      current.add(1, 'month');
+    }
+
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Something went wrong', details: err });
+  }
+};
+
+exports.getOrderStatusSummary = async (req, res) => {
+  try {
+    const orderStatusSummary = await Order.aggregate([
+      {
+        $group: {
+          _id: '$status',
+          value: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id',
+          value: 1
+        }
+      },
+      {
+        $sort: { count: -1 }
+      }
+    ]);
+
+    res.status(200).json(orderStatusSummary);
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Something went wrong', details: err });
   }
 };

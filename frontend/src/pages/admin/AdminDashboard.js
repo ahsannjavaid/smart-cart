@@ -29,6 +29,9 @@ const AdminDashboard = () => {
             </h2>
             <div className="flex justify-center items-center">
                 <div className="flex flex-col">
+                <Link className="text-white bg-orange-500 border-0 py-2 px-4 md:px-8 focus:outline-none hover:bg-orange-600 rounded text-sm md:text-lg text-center mb-10" to={'/admin/analytics'}>
+                        Analytics
+                    </Link>
                     <Link className="text-white bg-orange-500 border-0 py-2 px-4 md:px-8 focus:outline-none hover:bg-orange-600 rounded text-sm md:text-lg text-center mb-10" to={'/admin/addproduct'}>
                         Add a Product
                     </Link>
