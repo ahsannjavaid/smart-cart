@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
 
 const ShowAllProducts = () => {
 
@@ -11,12 +12,11 @@ const ShowAllProducts = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/myproducts`, {
-                method: 'POST',
+            let a = await fetch(`${API_BASE_URL}/myproducts`, {
+                method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify({ token: JSON.parse(localStorage.getItem('adminuser')).token }),
             })
 
             let res = await a.json()
@@ -25,7 +25,7 @@ const ShowAllProducts = () => {
 
 
         if (!localStorage.getItem('adminuser')) {
-            // navigate('/admin')
+            navigate('/admin')
         }
         else {
             fetchProducts()

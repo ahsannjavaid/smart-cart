@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from "../../config";
 
 const AddProduct = () => {
     const [title, setTitle] = useState('')
@@ -28,7 +29,7 @@ const AddProduct = () => {
 
     const addProduct = async () => {
         const data = { title, slug, color, size, category, price, quantity, image, desc, }
-        let resolve = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addproducts`, {
+        let resolve = await fetch(`${API_BASE_URL}/addproducts`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -111,10 +112,6 @@ const AddProduct = () => {
         }
         console.log(category)
     };
-    // const handleLogout = () => {
-    //   localStorage.removeItem('adminuser');
-    //   // navigate('/');
-    // };
 
     return (
 
