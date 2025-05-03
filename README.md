@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Smart Cart - Project Setup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Follow the steps below to set up and run the project locally.
 
-## Available Scripts
+## 🚀 Cloning the Repository
 
-In the project directory, you can run:
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
 
-### `npm start`
+## 📦 Install Dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Navigate to both the `frontend` and `backend` directories and run:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+Example:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+cd frontend
+npm install
 
-### `npm run build`
+cd ../backend
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔐 Environment Variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the `backend` directory, create a `.env` file and add the following environment variables:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```env
+MONGO_URI=your_mongo_connection_string
+AES_SECRET=your_aes_secret
+JWT_SECRET=your_jwt_secret
+```
 
-### `npm run eject`
+> ⚠️ **Important:** Never share your actual environment variable values publicly or commit them to version control.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ▶️ Running the Project
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start both frontend and backend servers using:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+# In frontend directory
+npm start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# In backend directory
+npm run dev
+```
 
-## Learn More
+## ✅ You're all set!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Your project should now be running locally at `http://localhost:3000`.
