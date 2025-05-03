@@ -37,18 +37,14 @@ AES_SECRET=your_aes_secret
 JWT_SECRET=your_jwt_secret
 ```
 
-> ⚠️ **Important:** Never share your actual environment variable values publicly or commit them to version control.
+> ⚠️ **Important:** We have not exposed `.env` values to git.
 
 ## ▶️ Running the Project
 
 Start both frontend and backend servers using:
 
 ```bash
-# In frontend directory
 npm start
-
-# In backend directory
-npm run dev
 ```
 
 ## ✅ You're all set!
