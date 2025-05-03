@@ -69,3 +69,30 @@ exports.updateProducts = async (req, res) => {
   }
   res.status(200).json({ success: "Success" });
 }
+
+exports.getCategoryQuantitySummary = async (req, res) => {
+  try {
+    const summary = await Product.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          count: { $sum: '$availableQty' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          count: 1
+        }
+      },
+      {
+        $sort: { category: 1 }
+      }
+    ]);
+
+    res.status(200).json(summary);
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Something went wrong', details: err });
+  }
+};

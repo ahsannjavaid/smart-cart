@@ -7,5 +7,6 @@ router.get("/getproducts", controller.getProducts);
 router.get("/getproduct/:slug", controller.getProduct);
 router.post("/addproducts", controller.addProduct);
 router.post("/updateproducts", controller.updateProducts);
+router.get("/categories-count", controller.getCategoryQuantitySummary);
 
 module.exports = router;
